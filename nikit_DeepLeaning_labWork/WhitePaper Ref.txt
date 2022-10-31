@@ -1,0 +1,10 @@
+To research, modify, and apply data science and data analytics prototypes.
+To create and construct methods and plans for machine learning.
+Employing test findings to do statistical analysis and improve models.
+To search internet for training datasets that are readily available.
+ML systems and models should be trained and retrained as necessary.
+To improve and broaden current ML frameworks and libraries.
+To create machine learning applications in accordance with client or customer needs.
+To investigate, test, and put into practice appropriate ML tools and algorithms.
+To evaluate the application cases and problem-solving potential of ML algorithms and rank them according to success likelihood
+To better comprehend data through exploration and visualization, as well as to spot discrepancies in data distribution that might affect a model’s effectiveness when used in practical situations.

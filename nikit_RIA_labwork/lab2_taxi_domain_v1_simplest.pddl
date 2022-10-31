@@ -3,9 +3,11 @@
 (define (domain taxi_simplest)
 
 ;remove requirements that are not needed
-(:requirements :strips :fluents :durative-actions :timed-initial-literals :typing :conditional-effects :negative-preconditions :duration-inequalities :equality)
-
-(:types ;todo: enumerate types and their hierarchy here, e.g. car truck bus - vehicle
+(:requirements :strips :fluents :durative-actions :timed-initial-literals 
+ :typing :conditional-effects :negative-preconditions :duration-inequalities 
+ :equality :numeric-fluents)
+(:types 
+    ;todo: enumerate types and their hierarchy here, e.g. car truck bus -vehicle
     location locatable - object
     taxi person - locatable
 )
@@ -26,18 +28,26 @@
 
 
 (:functions ;todo: define numeric functions here
+    (fuel_cost ?from ?to - location)- number
+    (fuel_level ?t - taxi)- number
 )
 
 ;define actions here
 (:action move_taxi
     :parameters (?t - taxi ?from ?to - location)
     :precondition (and 
+        ;; if the fuel capacity is greater than the fuel cost of the location, 
+        ;; then only move the taxi
+        (> (fuel_level ?t) (fuel_cost ?from ?to))
         (tlocation ?t ?from)          ;; taxi at location
         (connects ?from ?to)          ;; the locations are connected
     )
     :effect (and 
         (not (tlocation ?t ?from))    ;; taxi is moved
         (tlocation ?t ?to)            ;; taxi is at desired location
+        ;; decrease the overall fuel capacity by the fuel cost
+        ;; to travel from location 1 to location 2
+        (decrease (fuel_level ?t) (fuel_cost ?from ?to))
     )
 )
 
@@ -66,6 +76,18 @@
         (active_taxi ?t)          ;; taxi now should be acitve
         (exited ?p ?t)            ;; person should now exit
         (plocation ?p ?gp)
+    )
+)
+
+(:action refuel
+    :parameters (?t - taxi ?rl - refuel_location)
+    :precondition (and
+        (tlocation ?t ?rl)      ;; taxi is at the refuel location
+        (= (fuel_level ?t) 0)   ;; only refuel when the taxi has no fuel left
+    )
+    :effect (and 
+            ;; Restore the fuel to 20
+            (assign (fuel_level ?t) 20)
     )
 )
 

@@ -1,0 +1,105 @@
+==============================Few-Shot============================================
+1. Which line is showing data augmentation? 
+=>
+Code Cell 3 is showing data augmentation as here the images are randomly resized,
+randomly flipped to increase the number of classes.
+
+2. Find accuracy values by training the meta-learning algorithms from your own 
+training session using 2 classes in a task, 2 images per class (support set), 
+5 images per class (query set), 50 evaluation tasks, and 400 training episodes 
+with 10 validation tasks versus the author's training session. 
+=>
+With the authors training session, the accuracy comes out to be as seen below:
+'Model tested on 100 tasks. Accuracy: 98.60%'
+
+With out own setting in the training session, the accuracy comes our to be 
+Model tested on 50 tasks. Accuracy: 99.20%
+
+===============================One-Shot==========================================
+1. Explain print(Xtrain.shape) and print(ytrain.shape).
+=>
+Print (Xtrain.shape) gives us the shape of the x dataset which is part of the 
+training set. In our case print (Xtrain.shape) gives us the output as (964, 20, 105, 105). 
+This means we have 964 characters or letters or categories. For each of this character, 
+we have 20 images and each of this image is a grey scale image of resolution 105x105. 
+Hence the shape (964, 20, 105, 105).
+
+Similarly, print(ytrain.shape) gives us the shape of the y dataset which is part of the 
+training set. By this we get to understand how the labels are populated. 
+Total number of images = 964*20 = 19280. All the images for one letter have the same label.
+, i.e. The first 20 images have the label 0, the next 20 have the label 1 and so on, 
+… the last 20 images have the label 963.
+
+2. Why the tensor has two input images?
+=>
+One shot classification network takes an extra reference image along with the input image 
+as part of the input and produces a similarity score denoting the chances that the two 
+inputs belong to the same class. The similarity score ranges between 0 and 1, 
+where 0 denotes no similarity and 1 denotes full similarity. This network is not learning 
+to classify an image to one of the output classes. Rather, it is learning a similarity function, 
+which takes two images as input and expresses how similar they are. Hence the tensor has two inputs.
+
+3. Explain parameters low, high in cell 16.
+=>
+Low, high is used to describe the lower and upper bound of the number of characters 
+or letters present in the language. The difference between high and low(high – low) 
+cannot be less than the N(N way one shot learning) specified.
+
+4. From the author's training session, change to 10 trials and test with another 
+language and max number of ways one-shot learning for the selected language. 
+Observe the plotting graph by explaining the results 
+(Siamese vs Nearest neighbour vs Random guessing) and please write the 'other language 
+and the number of ways one-shot learning you have tried. 
+=>
+The Siamese model performed much better than the random model and the Nearest Neighbour model. 
+There was slight gap between the results on training set and the validation set which indicates 
+that the model was performing almost accurately when we lowered the N value to 16 for ‘Malayalam’ language. 
+If we reduce the N to an even smaller value it leads to more correct predictions.
+
+==============================Zero-Shot============================================
+
+1. Change the sentence to Who are you voting for the goalkeeper in 2020? Add 'sports' to the labels.  
+   Test with the hypothesis 'This text is about politics' versus 'This text is about sports'. 
+   Write the similarity values and the accuracy values for each experiment. 
+With the original experiment, the similarity score comes out to be as follows:
+label: politics 	 	similarity: 0.2156154215335846
+label: business 	 	similarity: 0.0045241620391607285
+label: art & culture 	similarity: -0.027396760880947113
+
+With the hypothesis 'This text is about politics', the probability that the hypothesis being true
+comes out to be: "Probability that the label is true: 98.08%"
+
+When we change the sentence to 'Who are you voting for the goalkeeper in 2020?' and after adding 'sports' into the labels
+the similarities for each label is as follows:
+label: politics 	 	similarity: 0.11613593995571136
+label: sports 	 	similarity: 0.08261813223361969
+label: art & culture 	similarity: -0.05207113176584244
+label: business 	 	similarity: -0.06392599642276764
+
+With the hypothesis 'This text is about politics', the probability that the hypothesis being true
+comes out to be: "Probability that the label is true: 88.49%"
+With the hypothesis 'This text is about sports', the probability that the hypothesis being true
+comes out to be: "Probability that the label is true: 76.31%"
+
+
+
+2. Now change to Who are you voting for the best goalkeeper in 2020? 
+   Run the same as question no. (1), observe the results and explain.
+When we change the sentence to 'Who are you voting for the best goalkeeper in 2020?', the similarities for
+each label is as follows:
+label: politics 	  	similarity: 0.049381472170352936
+label: sports 	 	similarity: 0.04091576114296913
+label: art & culture 	similarity: -0.06891386210918427
+label: business 	 	similarity: -0.07394587993621826
+Here the similarities for the label 'politics' is seen reduced and being equally like to the 'sports' label.
+
+Now when we change the premise to 'Who are you voting for the best goalkeeper in 2020?'
+and let the hypothesis be 'This text is about politics', the probability that the hypothesis
+being true comes out to be: "Probability that the label is true: 52.95%", which falls to the place where the 
+hypothesis fails to be true.
+However, when we change the hypothesis to be 'This text is about sports', the probability that the hypothesis
+being true comes out to be: "Probability that the label is true: 90.48%" which strongly entails the hypothesis
+to be true.
+When we are adding an unseen label 'sports', the similarity scores are seen to be shifting from 'politics' to
+'sports'. When we add 'best' in our sentence and premise, the model classifies the label 'sports' with the word 'best goalkeeper'
+from our text thereby increasing the probability score to 90.48% which entails our hypothesis to be true.

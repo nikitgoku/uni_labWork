@@ -1,0 +1,11 @@
+{
+    "editor.rulers": [80, 120
+    
+    ],
+    "editor.semanticTokenColorCustomizations": {
+    
+    },
+    "workbench.colorCustomizations": {
+        "editorRuler.foreground": "#c51751"
+    }
+}
