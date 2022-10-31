@@ -19,6 +19,7 @@
 (:predicates
     (tlocation ?loc - locatable ?l - location)
     (plocation ?loc - locatable ?l - location)
+    (fuel_station ?loc - location)
     (connects ?from ?to - location)
     (active_taxi ?t - locatable)
     (not_active_taxi ?t - locatable)
@@ -80,10 +81,11 @@
 )
 
 (:action refuel
-    :parameters (?t - taxi ?rl - refuel_location)
+    :parameters (?t - taxi ?fs - location)
     :precondition (and
-        (tlocation ?t ?rl)      ;; taxi is at the refuel location
-        (= (fuel_level ?t) 0)   ;; only refuel when the taxi has no fuel left
+        (fuel_station ?fs)      ;; location has a fuel station
+        (tlocation ?t ?fs)      ;; taxi is at the refuel location
+        (<= (fuel_level ?t) 3)  ;; only refuel when the taxi has less fuel left
     )
     :effect (and 
             ;; Restore the fuel to 20
