@@ -6,19 +6,20 @@
    (:domain taxi_simplest)
    (:objects
         ;; 1 taxi, 5 locations, 3 people
-         taxi_1 - taxi
+         taxi_1 taxi_2 - taxi
          livingstone_tower barony_hall tic royal_college graham_hills - location
-         ;;scott rajesh lingjie - person
+         scott rajesh - person 
+         ;;rajesh lingjie - person
         )
     (:init
         ;; Set all to be outside taxi and at different locations
         (= (fuel_level taxi_1) 20)
-        ;;(= (fuel_level taxi_2) 20)
+        (= (fuel_level taxi_2) 20)
         ;;(exited scott taxi_1)
-        ;;(plocation scott livingstone_tower)
+        (plocation scott graham_hills)
 
         ;;(exited rajesh taxi_2)
-        ;;(plocation rajesh graham_hills)
+        (plocation rajesh graham_hills)
 
         ;;(outsidetaxi lingjie)
         ;;(plocation lingjie barony_hall)
@@ -26,8 +27,8 @@
         ;; set taxi as active and set location
         (tlocation taxi_1 royal_college)
         (active_taxi taxi_1)
-        ;(tlocation taxi_2 livingstone_tower)
-        ;(active_taxi taxi_2)
+        (tlocation taxi_2 tic)
+        (active_taxi taxi_2)
         
         ;; Simple connections
         ;; Initially going to assume simple binary connections (i.e. a circle)
@@ -58,12 +59,12 @@
 
     (:goal
       (and
-          (tlocation taxi_1 livingstone_tower) 
-          ;(tlocation taxi_2 royal_college)
+          ;;(tlocation taxi_1 livingstone_tower) 
+          ;;(tlocation taxi_2 tic)
           ;;(outsidetaxi rajesh)
           ;;(outsidetaxi lingjie)
-          ;;(plocation scott barony_hall)
-          ;;(plocation rajesh livingstone_tower)
+          (plocation scott livingstone_tower)
+          (plocation rajesh livingstone_tower)
           ;;(exited scott taxi_1)
           ;;(active_taxi taxi_1)
           ;;(plocation rajesh barony_hall)
