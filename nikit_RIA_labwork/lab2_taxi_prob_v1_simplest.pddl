@@ -59,12 +59,12 @@
 
     (:goal
       (and
-          ;;(tlocation taxi_1 livingstone_tower) 
+          (tlocation taxi_1 livingstone_tower) 
           ;;(tlocation taxi_2 tic)
           ;;(outsidetaxi rajesh)
           ;;(outsidetaxi lingjie)
-          (plocation scott livingstone_tower)
-          (plocation rajesh livingstone_tower)
+          ;;(plocation scott livingstone_tower)
+          ;;(plocation rajesh livingstone_tower)
           ;;(exited scott taxi_1)
           ;;(active_taxi taxi_1)
           ;;(plocation rajesh barony_hall)
