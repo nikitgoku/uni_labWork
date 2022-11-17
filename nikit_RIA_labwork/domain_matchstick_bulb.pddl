@@ -49,7 +49,7 @@
     :effect (and 
         (at start (not (handsfree)))
         (at end (mended ?f))
-        (at end (not (light ?m -match)))
+        (at end (not (light ?m)))
     )
 )
 
